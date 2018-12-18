@@ -6,7 +6,6 @@ from django.contrib.auth.models import AbstractUser
 # from django.db.models import CharField
 from django.db import models
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 # 쿠키커터가 생성해 준 User class
