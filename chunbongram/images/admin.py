@@ -4,11 +4,13 @@ from . import models
 @admin.register(models.Image)
 class ImageAdmin(admin.ModelAdmin):
 
+    # 오브젝트에 접근하는 링크를 변경
     list_display_links = (
         'location',
         'caption',
     )
     
+    # 검색바와 대상
     search_fields = (
         'location',
         'caption',
