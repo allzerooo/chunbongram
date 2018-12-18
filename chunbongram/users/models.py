@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 # 쿠키커터가 생성해 준 User class
 class User(AbstractUser):
 
+    """ User Model """
+
     # constant
     GENDER_CHOICES = (
         ('male', 'Male'),
