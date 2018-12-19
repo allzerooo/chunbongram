@@ -1,0 +1,23 @@
+# rest_framework은 pipenv install djangorestframework로 설치한 앱
+from rest_framework import serializers
+from . import models
+
+class ImageSerializer(serializers.Serializers):
+
+    class Meta:
+        model = models.Image
+        fields = '__all__'
+
+
+class CommentSerializer(serializers.Serializer):
+
+    class Meta:
+        model = models.Comment
+        fields = '__all__'
+
+
+class LikeSerializer(serializers.Serializer):
+
+    class Meta:
+        model = models.Like
+        fields = '__all__'
