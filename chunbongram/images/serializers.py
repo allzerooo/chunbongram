@@ -20,8 +20,10 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class LikeSerializer(serializers.ModelSerializer):
 
+    # 2. 특정 필드는 키 값이 아니라 serizalizer라고 알려줌
     image = ImageSerializer()
 
     class Meta:
         model = models.Like
+        # 1. 모든 필드를 가져오는데
         fields = '__all__'
