@@ -21,6 +21,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class LikeSerializer(serializers.ModelSerializer):
 
     # 2. 특정 필드는 키 값이 아니라 serizalizer라고 알려줌
+    # 3. 따라서, 키 값 대신 serialize 된 오브젝트가 출력됨
     image = ImageSerializer()
 
     class Meta:
