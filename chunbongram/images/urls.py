@@ -3,5 +3,5 @@ from . import views
 
 app_name = "images"
 urlpatterns = [
-    path("/", view=views.Feed.as_view(), name="feed"),
+    path("", view=views.Feed.as_view(), name="feed"),
 ]
