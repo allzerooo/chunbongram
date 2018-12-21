@@ -25,6 +25,7 @@ class Image(TimeStampedModel):
     def __str__(self):
         return '{} - {}'.format(self.location, self.caption)
 
+    # DB에서 얻은 리스트를 생성된 날짜로 정렬
     class Meta:
         ordering = ['-created_at']
 
