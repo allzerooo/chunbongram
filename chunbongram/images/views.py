@@ -32,6 +32,25 @@ class LikeImage(APIView):
 
     def get(self, request, id, format=None):
 
-        print(id)
+        # url 을 요청한 현재 로그인 된 user
+        user = request.user
+
+        try:
+            found_image = models.Image.objects.get(id=id)
+        except models.Image.DoesNotExist:
+            return Response(status=404)
+        
+        # models.py 의
+        # def __str__(self):
+        # return '{} - {}'.format(self.location, self.caption)
+        # 에 해당하는 format 으로 출력됨
+        # print(found_image)
+
+        new_like = models.Like.objects.create(
+            creator = user,
+            image = found_image
+        )
+
+        new_like.save()
 
         return Response(status=200)
