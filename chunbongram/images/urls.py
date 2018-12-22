@@ -4,4 +4,7 @@ from . import views
 app_name = "images"
 urlpatterns = [
     path("", view=views.Feed.as_view(), name="feed"),
+    # 좋아요의 작동 방법은 /images/<image_id>/like or /images/<image_id>/unlike
+    # url 에서 id 를 가져오기
+    path("<int:id>/like/", view=views.LikeImage.as_view(), name="like_image"),
 ]
