@@ -1,15 +1,31 @@
 # rest_framework은 pipenv install djangorestframework로 설치한 앱
 from rest_framework import serializers
 from . import models
+from chunbongram.users import models as user_models
+
+# 생성자에 대한 serializer
+class FeedUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = user_models.User
+        fields = (
+            # User 모델에는 정의되지 않았지만, AbstractUser 가 가진 username
+            'username',
+            'profile_image'
+        )
 
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    #image = ImageSerializer()
+    creator = FeedUserSerializer()
 
     class Meta:
         model = models.Comment
-        fields = '__all__'
+        fields = (
+            'id',
+            'message',
+            'creator'
+        )
 
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -29,7 +45,9 @@ class ImageSerializer(serializers.ModelSerializer):
     # 2. _set 도 nested serializer 를 적용
     # 3. _set 은 related_name으로 찾기 때문에 related_name을 사용
     comments = CommentSerializer(many=True)
-    likes = LikeSerializer(many=True)
+    # like_count를 추가하면서 likes 는 serialize 할 필요가 없어짐
+    #likes = LikeSerializer(many=True)
+    creator = FeedUserSerializer()
 
     class Meta:
         model = models.Image
@@ -40,5 +58,7 @@ class ImageSerializer(serializers.ModelSerializer):
             'location',
             'caption',
             'comments',
-            'likes'
+            # image model 안에 있는 def()
+            'like_count',
+            'creator'
         )

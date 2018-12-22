@@ -22,6 +22,12 @@ class Image(TimeStampedModel):
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True, related_name='images')
 
+    # @property 는 모델의 field & function
+    @property
+    def like_count(self):
+        # self 인 이유는 본인의 이미지에 접근하기 때문
+        return self.likes.all().count()
+
     def __str__(self):
         return '{} - {}'.format(self.location, self.caption)
 
