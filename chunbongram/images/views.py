@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from . import models, serializers
 
 class Feed(APIView):
@@ -35,10 +36,11 @@ class LikeImage(APIView):
         # url 을 요청한 현재 로그인 된 user
         user = request.user
 
+        # 해당 id 를 갖는 image 를 탐색
         try:
             found_image = models.Image.objects.get(id=id)
         except models.Image.DoesNotExist:
-            return Response(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         
         # models.py 의
         # def __str__(self):
@@ -46,11 +48,23 @@ class LikeImage(APIView):
         # 에 해당하는 format 으로 출력됨
         # print(found_image)
 
-        new_like = models.Like.objects.create(
-            creator = user,
-            image = found_image
-        )
+        try:
+            # 해당 좋아요가 존재하는지 탐색
+            preexisting_like = models.Like.objects.get(
+                creator = user,
+                image = found_image
+            )
+            preexisting_like.delete()
 
-        new_like.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
-        return Response(status=200)
+        except models.Like.DoesNotExist:
+
+            new_like = models.Like.objects.create(
+                creator = user,
+                image = found_image
+            )
+
+            new_like.save()
+
+            return Response(status=status.HTTP_201_CREATED)
