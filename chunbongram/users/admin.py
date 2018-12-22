@@ -16,6 +16,6 @@ class UserAdmin(auth_admin.UserAdmin):
     # followers, following에는 ManyToManyField가 입력되어 있고
     # User 자신에게 연결되어 있다
     # 따라서 admin panel User 탭에서 followers, following은 다수를 선택할 수 있게 보여진다
-    fieldsets = (("User", {"fields": ("name", "followers", "following")}),) + auth_admin.UserAdmin.fieldsets
+    fieldsets = (("User", {"fields": ("name", "followers", "following", "profile_image")}),) + auth_admin.UserAdmin.fieldsets
     list_display = ["username", "name", "is_superuser"]
     search_fields = ["name"]
