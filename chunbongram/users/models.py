@@ -24,10 +24,11 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    # name은 AbstractUser가 가지고 있는 것. 그래서 이렇게 쓸 수 있다
+    # name은 AbstractUser가 가지고 있는 것
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
 
     # 밑에 있는 것들은 내가 만든 변수들
+    profile_image = models.ImageField(null=True)
     website = models.URLField(null=True)
     bio = models.TextField(null=True)
     phone = models.CharField(max_length=140, null=True)
