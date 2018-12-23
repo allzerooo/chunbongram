@@ -7,4 +7,5 @@ urlpatterns = [
     # 좋아요의 작동 방법은 /images/<image_id>/like or /images/<image_id>/unlike
     # url 에서 id 를 가져오기
     path("<int:id>/like/", view=views.LikeImage.as_view(), name="like_image"),
+    path("<int:id>/comment/", view=views.CommentOnImage.as_view(), name="comment_image"),
 ]

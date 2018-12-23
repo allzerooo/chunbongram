@@ -54,12 +54,13 @@ class LikeImage(APIView):
                 creator = user,
                 image = found_image
             )
+            # 존재하면 삭제
             preexisting_like.delete()
 
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         except models.Like.DoesNotExist:
-
+            # 해당 좋아요가 존재하지 않으면 생성
             new_like = models.Like.objects.create(
                 creator = user,
                 image = found_image
@@ -68,3 +69,41 @@ class LikeImage(APIView):
             new_like.save()
 
             return Response(status=status.HTTP_201_CREATED)
+
+
+class CommentOnImage(APIView):
+
+    def post(self, request, id, format=None):
+    
+        # base.py 에서 CSRF_COOKIE_HTTPONLY = False 로 바꿔야 동작함
+        # fron-end 에서 back-end 로 데이터 받아오기
+        # print(request.data)
+
+        user = request.user
+
+        try:
+            found_image = models.Image.objects.get(id=id)
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.CommentSerializer(data=request.data)
+
+        # CommentSerializer 는 id, message, creator 3 필드를 가지는데
+        # id 는 바꿀 수 없고, creator 는 read_only 이기 때문에 message 만 찾는다
+        # 따라서 {"message" : "hello"} 만 보내줘도 되는 것
+        # 그렇기 때문에 serializer 는 유효함 = is_valid()
+
+        if serializer.is_valid():
+
+            # print('im valid')
+
+            # comment model 은 message, creator, image 필드를 가짐
+            # 따라서 모델 필드를 채워 저장
+            serializer.save(creator=user, image=found_image)
+
+            # message 필드와 함께 댓글을 생성한다는 뜻
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        
+        else:
+
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
