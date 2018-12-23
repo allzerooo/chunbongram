@@ -107,3 +107,18 @@ class CommentOnImage(APIView):
         else:
 
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Comment(APIView):
+
+    def delete(self, request, id, format=None):
+
+        user = request.user
+
+        try:
+            # id 는 url 의 comment id 와 같고, creator 는 현재 삭제를 요청하는 유저와 같아야
+            comment = models.Comment.objects.get(id=id, creator=user)
+            comment.delete()
+            return Response(status.HTTP_204_NO_CONTENT)
+        except models.Comment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
