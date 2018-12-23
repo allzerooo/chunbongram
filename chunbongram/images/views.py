@@ -117,6 +117,7 @@ class Comment(APIView):
 
         try:
             # id 는 url 의 comment id 와 같고, creator 는 현재 삭제를 요청하는 유저와 같아야
+            # 따라서 다른 사람의 댓글을 삭제할 수 없음
             comment = models.Comment.objects.get(id=id, creator=user)
             comment.delete()
             return Response(status.HTTP_204_NO_CONTENT)
