@@ -62,11 +62,13 @@ DJANGO_APPS = [
     # 'django.contrib.humanize', # Handy template tags
     'django.contrib.admin',
 ]
+# INSTALLED_APPS
 THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',    # registration
     'rest_framework',   # REST framework
+    'taggit',   # for HashTag ( Tags for the photos )
 ]
 LOCAL_APPS = [
     'chunbongram.users.apps.UsersAppConfig',
@@ -249,3 +251,4 @@ SOCIALACCOUNT_ADAPTER = 'chunbongram.users.adapters.SocialAccountAdapter'
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+TAGGIT_CASE_INSENSITIVE = True

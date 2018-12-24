@@ -1,5 +1,6 @@
 from django.db import models
 from chunbongram.users import models as user_models
+from taggit.managers import TaggableManager
 from django.utils.encoding import python_2_unicode_compatible
 
 class TimeStampedModel(models.Model):
@@ -21,6 +22,7 @@ class Image(TimeStampedModel):
     location = models.CharField(max_length=140)
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True, related_name='images')
+    tags = TaggableManager()
 
     # @property 는 모델의 field & function
     @property
