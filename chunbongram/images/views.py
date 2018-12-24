@@ -73,7 +73,7 @@ class LikeImage(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
 
-class UnlikeImage(APIView):
+class UnLikeImage(APIView):
 
     def delete(self, request, id, format=None):
 
