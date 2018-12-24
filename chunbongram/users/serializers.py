@@ -5,7 +5,7 @@ from chunbongram.images import serializers as images_serializers
 
 class UserProfieSerializer(serializers.ModelSerializer):
 
-    images = images_serializers.UserProfileImagesSerializer(many=True)
+    images = images_serializers.CountImagesSerializer(many=True)
 
     class Meta:
         model = models.User

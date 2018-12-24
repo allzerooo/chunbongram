@@ -3,7 +3,7 @@ from rest_framework import serializers
 from . import models
 from chunbongram.users import models as user_models
 
-class UserProfileImagesSerializer(serializers.ModelSerializer):
+class CountImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
