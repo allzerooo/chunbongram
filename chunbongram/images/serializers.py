@@ -3,6 +3,17 @@ from rest_framework import serializers
 from . import models
 from chunbongram.users import models as user_models
 
+class UserProfileImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'id',
+            'file',
+            'comment_count',
+            'like_count'
+        )
+
 # 생성자에 대한 serializer
 class FeedUserSerializer(serializers.ModelSerializer):
 

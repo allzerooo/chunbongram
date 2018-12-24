@@ -28,6 +28,10 @@ class Image(TimeStampedModel):
         # self 인 이유는 본인의 이미지에 접근하기 때문
         return self.likes.all().count()
 
+    @property
+    def comment_count(self):
+        return self.comments.all().count()
+
     def __str__(self):
         return '{} - {}'.format(self.location, self.caption)
 
