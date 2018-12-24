@@ -3,6 +3,17 @@ from rest_framework import serializers
 from . import models
 from chunbongram.users import models as user_models
 
+
+class SmallImageSerializer(serializers.ModelSerializer):
+    
+    """ Used for the notifications """
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'file',
+        )
+
 class CountImagesSerializer(serializers.ModelSerializer):
 
     class Meta:

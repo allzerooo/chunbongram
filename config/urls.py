@@ -17,6 +17,7 @@ urlpatterns = [
     # User management
     path("users/", include("chunbongram.users.urls", namespace="users"),),
     path("images/", include("chunbongram.images.urls", namespace="images")),
+    path("notifications/", include("chunbongram.notifications.urls", namespace="notifications")),    
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(
