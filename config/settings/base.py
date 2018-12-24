@@ -73,7 +73,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'chunbongram.users.apps.UsersAppConfig',
     # Your stuff: custom apps go here
-    'chunbongram.images.apps.ImagesConfig',
+    'chunbongram.images.apps.ImagesConfig', # images app
+    'chunbongram.notifications.apps.NotificationsConfig'    # notifications app
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
