@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . import models, serializers
+from chunbongram.notifications import views as notification_views
 
 class Feed(APIView):
 
@@ -69,6 +70,8 @@ class LikeImage(APIView):
             )
 
             new_like.save()
+            
+            notification_views.create_notification(user, found_image.creator, 'like', found_image)
 
             return Response(status=status.HTTP_201_CREATED)
 
@@ -127,6 +130,10 @@ class CommentOnImage(APIView):
             # comment model 은 message, creator, image 필드를 가짐
             # 따라서 모델 필드를 채워 저장
             serializer.save(creator=user, image=found_image)
+
+            # request.dat['message'] == serailizer.data['message']
+            notification_views.create_notification(
+                user, found_image.creator, 'comment', found_image, request.data['message'])
 
             # message 필드와 함께 댓글을 생성한다는 뜻
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)

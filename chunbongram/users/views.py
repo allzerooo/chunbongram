@@ -55,6 +55,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . import models, serializers
+from chunbongram.notifications import views as notification_views
 
 class ExploreUsers(APIView):
 
@@ -71,10 +72,11 @@ class FollowUser(APIView):
 
     def post(self, request, id, format=None):
 
+        # follow 요청자
         user = request.user
-        print(user.id)
 
         try:
+            # follow 요청을 받는 user
             user_to_follow = models.User.objects.get(id=id)
         except models.User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -82,6 +84,9 @@ class FollowUser(APIView):
         user.following.add(user_to_follow)
 
         user.save()
+
+        # 'follow' 는 notifications models 에서 type 의 선택 값으로 정의한 것 중
+        notification_views.create_notification(user, user_to_follow, 'follow')
 
         return Response(status=status.HTTP_200_OK)
 
