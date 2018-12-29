@@ -82,5 +82,6 @@ class ImageSerializer(serializers.ModelSerializer):
             'comments',
             # image model 안에 있는 def()
             'like_count',
-            'creator'
+            'creator',
+            'created_at'
         )
