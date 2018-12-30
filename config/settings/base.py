@@ -69,6 +69,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',    # registration
     'rest_framework',   # REST framework
     'taggit',   # for HashTag ( Tags for the photos )
+    'taggit_serializer',    # tag serializer
 ]
 LOCAL_APPS = [
     'chunbongram.users.apps.UsersAppConfig',

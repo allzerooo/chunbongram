@@ -1,6 +1,7 @@
 # rest_framework은 pipenv install djangorestframework로 설치한 앱
 from rest_framework import serializers
 from . import models
+from taggit_serializer.serializers import (TagListSerializerField, TaggitSerializer)
 from chunbongram.users import models as user_models
 
 
@@ -64,7 +65,7 @@ class LikeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class ImageSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     # 2. _set 도 nested serializer 를 적용
     # 3. _set 은 related_name으로 찾기 때문에 related_name을 사용
@@ -72,6 +73,7 @@ class ImageSerializer(serializers.ModelSerializer):
     # like_count를 추가하면서 likes 는 serialize 할 필요가 없어짐
     #likes = LikeSerializer(many=True)
     creator = FeedUserSerializer()
+    tags = TagListSerializerField()
 
     class Meta:
         model = models.Image
@@ -85,6 +87,7 @@ class ImageSerializer(serializers.ModelSerializer):
             # image model 안에 있는 def()
             'like_count',
             'creator',
+            'tags',
             'created_at'
         )
 
