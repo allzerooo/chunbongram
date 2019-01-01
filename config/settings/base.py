@@ -66,7 +66,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
-    'allauth.socialaccount',    # registration
+    'allauth.socialaccount',    # registration # cookiecutter 가 설치
+    'allauth.socialaccount.providers.facebook',  # registration
     'rest_framework',   # REST framework
     'rest_framework.authtoken',    # rest auth
     'taggit',   # for HashTag ( Tags for the photos )
