@@ -5,7 +5,7 @@ from chunbongram.images import serializers as images_serializers
 
 class UserProfieSerializer(serializers.ModelSerializer):
 
-    images = images_serializers.CountImagesSerializer(many=True)
+    images = images_serializers.CountImagesSerializer(many=True, read_only=True)
     # readonlyfield 는 해당 필드들은 수정하지 않는다는 뜻
     post_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
